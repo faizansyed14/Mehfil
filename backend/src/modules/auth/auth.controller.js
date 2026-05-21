@@ -5,10 +5,11 @@ import { AppError } from '../../middleware/error.js';
 const COOKIE_NAME = 'refresh_token';
 
 function setRefreshCookie(res, token) {
+  const isProd = env.NODE_ENV === 'production';
   res.cookie(COOKIE_NAME, token, {
     httpOnly: true,
-    secure: env.NODE_ENV === 'production',
-    sameSite: 'lax',
+    secure: isProd,
+    sameSite: isProd ? 'none' : 'lax', // Must be 'none' for cross-origin on Render
     path: '/',
     maxAge: env.REFRESH_TOKEN_TTL_DAYS * 24 * 60 * 60 * 1000
   });

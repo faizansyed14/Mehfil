@@ -151,7 +151,7 @@ export default function Sidebar() {
 
         {/* Attribution */}
         <div className="px-6 py-2 text-[9px] uppercase tracking-[0.2em] text-[var(--ink-faint)] font-medium opacity-60">
-          Created by Frizzy
+          Mehfil
         </div>
 
         {/* User pill */}

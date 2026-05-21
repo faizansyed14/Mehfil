@@ -11,8 +11,17 @@ const app = express();
 
 // Security & parsing
 app.use(helmet());
+
+// Flexible CORS for Render/Production
+const whiteList = [env.CORS_ORIGIN, env.CORS_ORIGIN.replace(/\/$/, '')];
 app.use(cors({
-  origin: env.CORS_ORIGIN,
+  origin: (origin, callback) => {
+    if (!origin || whiteList.includes(origin) || whiteList.includes(origin + '/')) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
 }));
 app.use(express.json());
