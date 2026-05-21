@@ -1,0 +1,11 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    ports: ["5432:5432"]
+    environment:
+      POSTGRES_USER: mehfil
+      POSTGRES_PASSWORD: mehfil
+      POSTGRES_DB: mehfil
+    volumes: ["pgdata:/var/lib/postgresql/data"]
+volumes:
+  pgdata:
