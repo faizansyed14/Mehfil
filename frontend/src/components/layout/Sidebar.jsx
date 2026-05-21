@@ -149,6 +149,11 @@ export default function Sidebar() {
           )}
         </nav>
 
+        {/* Attribution */}
+        <div className="px-6 py-2 text-[9px] uppercase tracking-[0.2em] text-[var(--ink-faint)] font-medium opacity-60">
+          Created by Frizzy
+        </div>
+
         {/* User pill */}
         {user && (
           <div className="relative px-3 pb-4">

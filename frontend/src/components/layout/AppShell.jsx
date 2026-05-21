@@ -2,6 +2,7 @@ import { Outlet, useLocation } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import TopBar from './TopBar';
 import BottomBar from './BottomBar';
+import { cn } from '../../lib/cn';
 
 export default function AppShell() {
   const location = useLocation();
@@ -20,8 +21,10 @@ export default function AppShell() {
         {/* Page content */}
         <main className="flex-1 overflow-y-auto w-full">
           <div
-            className={isAdminPage ? "mx-auto px-4 py-8 md:px-8 max-w-7xl w-full" : "mx-auto px-4 py-6 md:px-6 lg:px-8"}
-            style={isAdminPage ? {} : { maxWidth: 680 }}
+            className={cn(
+              "mx-auto pt-6 px-4 md:px-6",
+              isAdminPage ? "w-full max-w-7xl" : "w-full max-w-[680px]"
+            )}
           >
             <Outlet />
           </div>
