@@ -10,7 +10,7 @@ services:
     env: node
     plan: free
     rootDir: backend
-    buildCommand: npm ci && npx prisma generate && npx prisma migrate deploy
+    buildCommand: npm ci && npx prisma generate && npx prisma migrate deploy && npx prisma db seed
     startCommand: node src/server.js
     envVars:
       - key: DATABASE_URL
