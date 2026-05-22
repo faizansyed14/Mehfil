@@ -4,14 +4,20 @@ import { AppError } from '../../middleware/error.js';
 
 const COOKIE_NAME = 'refresh_token';
 
-function setRefreshCookie(res, token) {
+function refreshCookieOptions() {
   const isProd = env.NODE_ENV === 'production';
-  res.cookie(COOKIE_NAME, token, {
+  return {
     httpOnly: true,
     secure: isProd,
-    sameSite: isProd ? 'none' : 'lax', // Must be 'none' for cross-origin on Render
+    sameSite: isProd ? 'none' : 'lax',
     path: '/',
-    maxAge: env.REFRESH_TOKEN_TTL_DAYS * 24 * 60 * 60 * 1000
+  };
+}
+
+function setRefreshCookie(res, token) {
+  res.cookie(COOKIE_NAME, token, {
+    ...refreshCookieOptions(),
+    maxAge: env.REFRESH_TOKEN_TTL_DAYS * 24 * 60 * 60 * 1000,
   });
 }
 
@@ -47,7 +53,7 @@ export async function refresh(req, res, next) {
     res.json({ user, accessToken });
   } catch (err) {
     // Clear cookie on failed refresh
-    res.clearCookie(COOKIE_NAME, { path: '/' });
+    res.clearCookie(COOKIE_NAME, refreshCookieOptions());
     next(err);
   }
 }
@@ -58,7 +64,7 @@ export async function signout(req, res, next) {
     if (token) {
       await authService.signout(token);
     }
-    res.clearCookie(COOKIE_NAME, { path: '/' });
+    res.clearCookie(COOKIE_NAME, refreshCookieOptions());
     res.status(204).end();
   } catch (err) {
     next(err);

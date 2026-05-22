@@ -24,7 +24,7 @@ cd frontend && npm i && npm run dev
 Backend runs at `http://localhost:4000`, frontend at `http://localhost:5173`.
 
 ### Seed Data
-- Admin: `admin@mehfil.local` / `ChangeMe!234`
+- Admin: `admin@gmail.com` / `Admin@123`
 - Sample users: `poet1@mehfil.local`, `poet2@mehfil.local`, `poet3@mehfil.local` (all password: `Password123!`)
 
 ## Deployment (Render Free Tier)

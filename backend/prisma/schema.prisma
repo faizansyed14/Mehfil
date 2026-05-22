@@ -31,8 +31,9 @@ model User {
   posts     Post[]
   comments  Comment[]
   reactions Reaction[]
-  following Follow[]   @relation("follower")
-  followers Follow[]   @relation("following")
+  following     Follow[]       @relation("follower")
+  followers     Follow[]       @relation("following")
+  refreshTokens RefreshToken[]
 
   @@index([createdAt])
 }
@@ -93,6 +94,7 @@ model Follow {
 model RefreshToken {
   id        String   @id @default(cuid())
   userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   tokenHash String   @unique
   expiresAt DateTime
   revoked   Boolean  @default(false)

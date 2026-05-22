@@ -4,15 +4,18 @@ import bcrypt from 'bcrypt';
 const prisma = new PrismaClient();
 
 async function main() {
-  const adminPassword = await bcrypt.hash('ChangeMe!234', 12);
+  const adminPassword = await bcrypt.hash('Admin@123', 12);
   const userPassword = await bcrypt.hash('Password123!', 12);
 
-  // Admin user
   await prisma.user.upsert({
-    where: { email: 'admin@mehfil.local' },
-    update: {},
+    where: { email: 'admin@gmail.com' },
+    update: {
+      passwordHash: adminPassword,
+      role: 'ADMIN',
+      displayName: 'Mehfil Admin',
+    },
     create: {
-      email: 'admin@mehfil.local',
+      email: 'admin@gmail.com',
       username: 'admin',
       displayName: 'Mehfil Admin',
       passwordHash: adminPassword,
@@ -53,7 +56,9 @@ async function main() {
       },
     });
 
-    // Create 2 sample posts for each poet
+    const postCount = await prisma.post.count({ where: { authorId: user.id } });
+    if (postCount > 0) continue;
+
     await prisma.post.create({
       data: {
         authorId: user.id,
