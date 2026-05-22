@@ -11,6 +11,7 @@ import { authApi } from '../api/auth.api';
 import { usersApi } from '../api/users.api';
 import { useAuthStore } from '../store/authStore';
 import { useDebounce } from '../hooks/useDebounce';
+import ThemeToggle from '../components/ui/ThemeToggle';
 
 const schema = z.object({
   email: z.string().email('Invalid email address'),
@@ -78,22 +79,27 @@ export default function SignUpPage() {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="min-h-screen py-16 flex items-center justify-center px-4"
-      style={{ backgroundColor: 'var(--bg)' }}
+      className="relative min-h-dvh py-8 sm:py-16 flex items-center justify-center px-4"
     >
-      <div className="w-full max-w-[440px]">
-        <div className="text-center mb-10">
-          <h1 className="font-display text-4xl font-semibold mb-2" style={{ color: 'var(--ink)' }}>
+      <div className="absolute top-4 right-4 sm:top-6 sm:right-6 z-10" style={{ paddingTop: 'var(--safe-top)' }}>
+        <ThemeToggle />
+      </div>
+      <div className="w-full max-w-[440px] min-w-0">
+        <div className="text-center mb-8 sm:mb-10">
+          <h1 className="font-display text-3xl sm:text-4xl font-semibold text-[var(--ink)] mb-2">
             Join Mehfil
           </h1>
-          <p className="font-body text-sm" style={{ color: 'var(--ink-muted)' }}>
+          <p className="font-body text-sm text-[var(--ink-muted)]">
             Become part of the verse
           </p>
         </div>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 bg-[var(--bg-elev)] p-8 border border-[var(--line)] rounded-lg">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="space-y-5 sm:space-y-6 surface-card p-5 sm:p-8"
+        >
           {serverError && (
-            <div className="p-3 text-xs font-medium text-[var(--accent)] bg-[var(--accent-soft)] rounded-md border border-[var(--accent)] border-opacity-20">
+            <div className="p-3 text-xs font-medium text-[var(--accent)] bg-[var(--accent-soft)] rounded-md border border-[var(--line)]">
               {serverError}
             </div>
           )}
@@ -102,7 +108,8 @@ export default function SignUpPage() {
             <Input
               label="Email"
               type="email"
-              placeholder="poet@mehfil.local"
+              placeholder="you@example.com"
+              autoComplete="email"
               error={errors.email?.message}
               {...register('email')}
             />
@@ -111,6 +118,7 @@ export default function SignUpPage() {
               <Input
                 label="Username"
                 placeholder="poet_scribe"
+                autoComplete="username"
                 error={errors.username?.message}
                 {...register('username')}
               />
@@ -126,7 +134,8 @@ export default function SignUpPage() {
 
             <Input
               label="Display Name"
-              placeholder="e.g. John Keats"
+              placeholder="e.g. Your Name"
+              autoComplete="name"
               error={errors.displayName?.message}
               {...register('displayName')}
             />
@@ -135,17 +144,18 @@ export default function SignUpPage() {
               label="Password"
               type="password"
               placeholder="••••••••"
+              autoComplete="new-password"
               error={errors.password?.message}
               {...register('password')}
             />
           </div>
 
-          <Button type="submit" className="w-full" isLoading={isLoading}>
+          <Button type="submit" className="w-full" size="lg" isLoading={isLoading}>
             Create Account
           </Button>
         </form>
 
-        <p className="mt-8 text-center text-sm" style={{ color: 'var(--ink-muted)' }}>
+        <p className="mt-6 sm:mt-8 text-center text-sm text-[var(--ink-muted)]">
           Already signed up?{' '}
           <Link to="/signin" className="text-[var(--accent)] font-medium hover:underline">
             Sign in here

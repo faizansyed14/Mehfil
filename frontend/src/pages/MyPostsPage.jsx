@@ -29,10 +29,7 @@ export default function MyPostsPage() {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.12, ease: 'easeOut' }}
     >
-      <h1
-        className="font-display mb-8"
-        style={{ fontSize: '1.75rem', fontWeight: 600, color: 'var(--ink)' }}
-      >
+      <h1 className="font-display text-2xl sm:text-3xl font-semibold text-[var(--ink)] mb-6 sm:mb-8">
         My Posts
       </h1>
 

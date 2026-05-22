@@ -75,26 +75,13 @@ export default function Sidebar() {
 
       <aside
         className={cn(
-          'fixed top-0 left-0 z-50 h-full flex flex-col border-r transition-transform duration-200 md:translate-x-0 md:static md:z-auto',
+          'surface-glass fixed top-0 left-0 z-50 h-full flex flex-col border-r transition-transform duration-200 md:translate-x-0 md:static md:z-auto w-[min(85vw,260px)] md:w-[240px]',
           sidebarOpen ? 'translate-x-0' : '-translate-x-full'
         )}
-        style={{
-          width: 240,
-          backgroundColor: 'var(--bg-elev)',
-          borderColor: 'var(--line)',
-        }}
+        style={{ paddingTop: 'var(--safe-top)' }}
       >
-        {/* Wordmark */}
-        <div className="px-6 pt-6 pb-4">
-          <h1
-            className="font-display"
-            style={{
-              fontSize: '1.375rem',
-              fontWeight: 600,
-              color: 'var(--ink)',
-              letterSpacing: '-0.01em',
-            }}
-          >
+        <div className="px-5 sm:px-6 pt-5 sm:pt-6 pb-4">
+          <h1 className="font-display text-xl font-semibold text-[var(--ink)] tracking-tight">
             Mehfil
           </h1>
         </div>

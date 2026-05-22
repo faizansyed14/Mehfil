@@ -6,29 +6,15 @@ export default function NotFoundPage() {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ duration: 0.12, ease: 'easeOut' }}
-      className="min-h-[60vh] flex flex-col items-center justify-center text-center"
+      className="min-h-dvh flex flex-col items-center justify-center text-center px-4"
     >
-      <h1
-        className="font-display mb-2"
-        style={{ fontSize: '3rem', fontWeight: 600, color: 'var(--ink)' }}
-      >
+      <h1 className="font-display text-5xl sm:text-6xl font-semibold text-[var(--ink)] mb-2">
         404
       </h1>
-      <p
-        className="mb-6"
-        style={{ fontSize: '0.875rem', color: 'var(--ink-muted)' }}
-      >
+      <p className="mb-6 text-sm text-[var(--ink-muted)]">
         This page does not exist.
       </p>
-      <Link
-        to="/"
-        className="px-4 py-2 rounded-md text-sm font-medium transition-colors"
-        style={{
-          backgroundColor: 'var(--accent)',
-          color: '#fff',
-        }}
-      >
+      <Link to="/" className="bg-[var(--accent)] text-white px-6 py-3 rounded-[var(--radius)] text-sm font-medium shadow-md hover:opacity-90">
         Return home
       </Link>
     </motion.div>

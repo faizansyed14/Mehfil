@@ -1,9 +1,9 @@
 import { motion } from 'framer-motion';
 import { useUiStore } from '../store/uiStore';
-import { Moon, Sun } from 'lucide-react';
+import ThemeToggle from '../components/ui/ThemeToggle';
 
 export default function SettingsPage() {
-  const { theme, toggleTheme } = useUiStore();
+  const { theme } = useUiStore();
 
   return (
     <motion.div
@@ -11,21 +11,12 @@ export default function SettingsPage() {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.12, ease: 'easeOut' }}
     >
-      <h1
-        className="font-display mb-6"
-        style={{ fontSize: '1.75rem', fontWeight: 600, color: 'var(--ink)' }}
-      >
+      <h1 className="font-display text-2xl sm:text-3xl font-semibold text-[var(--ink)] mb-6">
         Settings
       </h1>
 
-      <div
-        className="rounded-lg border p-6"
-        style={{
-          borderColor: 'var(--line)',
-          backgroundColor: 'var(--bg-elev)',
-        }}
-      >
-        <div className="flex items-center justify-between">
+      <div className="surface-card p-5 sm:p-6">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <p style={{ fontSize: '0.875rem', fontWeight: 500, color: 'var(--ink)' }}>
               Appearance
@@ -34,27 +25,10 @@ export default function SettingsPage() {
               Switch between light and dark mode
             </p>
           </div>
-          <button
-            onClick={toggleTheme}
-            className="flex items-center gap-2 px-3 py-2 rounded-md border transition-colors hover:bg-[var(--accent-soft)]"
-            style={{
-              borderColor: 'var(--line)',
-              color: 'var(--ink-muted)',
-              fontSize: '0.875rem',
-            }}
-          >
-            {theme === 'light' ? (
-              <>
-                <Moon size={16} strokeWidth={1.5} />
-                Dark
-              </>
-            ) : (
-              <>
-                <Sun size={16} strokeWidth={1.5} />
-                Light
-              </>
-            )}
-          </button>
+          <div className="flex items-center gap-3">
+            <span className="text-sm text-[var(--ink-muted)] capitalize">{theme} mode</span>
+            <ThemeToggle />
+          </div>
         </div>
       </div>
     </motion.div>

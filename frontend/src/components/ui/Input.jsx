@@ -3,7 +3,7 @@ import { cn } from '../../lib/cn';
 
 const Input = forwardRef(({ className, label, error, ...props }, ref) => {
   return (
-    <div className="w-full">
+    <div className="w-full min-w-0">
       {label && (
         <label className="block text-xs font-semibold mb-1.5 text-[var(--ink-muted)] uppercase tracking-wider">
           {label}
@@ -12,7 +12,9 @@ const Input = forwardRef(({ className, label, error, ...props }, ref) => {
       <input
         ref={ref}
         className={cn(
-          'w-full bg-[var(--bg-elev)] border border-[var(--line)] rounded-md px-3 py-2 text-sm transition-colors focus:border-[var(--ink)] outline-none placeholder:text-[var(--ink-faint)]',
+          'w-full min-w-0 surface-card rounded-[var(--radius)] px-3 py-2.5 text-base md:text-sm text-sm-input transition-colors',
+          'focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent-soft)] outline-none',
+          'placeholder:text-[var(--ink-faint)]',
           error && 'border-[var(--accent)]',
           className
         )}

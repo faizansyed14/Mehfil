@@ -13,4 +13,5 @@ export const postQuerySchema = z.object({
   limit: z.coerce.number().min(1).max(100).default(20),
   tag: z.string().optional(),
   authorId: z.string().optional(),
+  search: z.string().min(1).max(100).optional(),
 });

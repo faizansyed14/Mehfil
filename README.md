@@ -24,8 +24,7 @@ cd frontend && npm i && npm run dev
 Backend runs at `http://localhost:4000`, frontend at `http://localhost:5173`.
 
 ### Seed Data
-- Admin: `admin@gmail.com` / `Admin@123`
-- Sample users: `poet1@mehfil.local`, `poet2@mehfil.local`, `poet3@mehfil.local` (all password: `Password123!`)
+- Creates admin only if missing: `admin@gmail.com` / `Admin@123` (re-runs do not change existing users or posts)
 
 ## Deployment (Render Free Tier)
 

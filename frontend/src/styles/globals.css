@@ -18,12 +18,16 @@
   --radius-lg: 14px;
 
   --shadow-dropdown: 0 12px 32px rgba(0, 0, 0, 0.08);
+  --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.06);
 
   --font-display: 'Fraunces Variable', 'Georgia', serif;
   --font-body: 'Inter Variable', 'system-ui', sans-serif;
+
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-top: env(safe-area-inset-top, 0px);
 }
 
-[data-theme="dark"] {
+[data-theme='dark'] {
   --bg: #14110E;
   --bg-elev: #1C1916;
   --ink: #EDE6D8;
@@ -33,9 +37,9 @@
   --accent: #C77A6A;
   --accent-soft: #2A1D1A;
   --focus: #EDE6D8;
+  --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.25);
 }
 
-/* Base resets */
 *, *::before, *::after {
   box-sizing: border-box;
 }
@@ -44,6 +48,7 @@ html {
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
@@ -52,9 +57,40 @@ body {
   background-color: var(--bg);
   color: var(--ink);
   line-height: 1.6;
+  overflow-x: hidden;
+  touch-action: manipulation;
 }
 
-/* Typography scale */
+#root {
+  min-height: 100dvh;
+}
+
+input,
+textarea,
+select {
+  font-size: 16px;
+}
+
+@media (min-width: 768px) {
+  input.text-sm-input,
+  textarea.text-sm-input,
+  select.text-sm-input {
+    font-size: 0.875rem;
+  }
+}
+
+.surface-card {
+  background: var(--bg-elev);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+}
+
+.surface-glass {
+  background: var(--bg-elev);
+  border-bottom: 1px solid var(--line);
+}
+
 .text-xs { font-size: 0.75rem; }
 .text-sm { font-size: 0.875rem; }
 .text-base { font-size: 1rem; }
@@ -64,60 +100,44 @@ body {
 .text-3xl { font-size: 2.25rem; }
 .text-4xl { font-size: 3rem; }
 
-/* Font families */
-.font-display {
-  font-family: var(--font-display);
-}
+.font-display { font-family: var(--font-display); }
+.font-body { font-family: var(--font-body); }
 
-.font-body {
-  font-family: var(--font-body);
-}
-
-/* Focus ring */
 :focus-visible {
   outline: 2px solid var(--focus);
   outline-offset: 2px;
 }
 
-/* Scrollbar styling */
-::-webkit-scrollbar {
-  width: 6px;
-}
-
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb {
   background: var(--line);
   border-radius: 3px;
 }
+::-webkit-scrollbar-thumb:hover { background: var(--ink-faint); }
 
-::-webkit-scrollbar-thumb:hover {
-  background: var(--ink-faint);
-}
-
-/* Selection */
 ::selection {
   background-color: var(--accent-soft);
   color: var(--ink);
 }
 
-/* Poem body styling */
 .poem-body {
   font-family: var(--font-display);
   white-space: pre-wrap;
   line-height: 1.8;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
-/* Link reset */
-a {
-  color: inherit;
-  text-decoration: none;
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; }
+
+.pb-nav-safe {
+  padding-bottom: calc(4.5rem + var(--safe-bottom));
 }
 
-/* Button reset */
-button {
-  font-family: inherit;
-  cursor: pointer;
+@media (min-width: 768px) {
+  .pb-nav-safe {
+    padding-bottom: 1.5rem;
+  }
 }

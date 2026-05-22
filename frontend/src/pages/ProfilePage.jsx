@@ -87,19 +87,19 @@ export default function ProfilePage() {
       className="space-y-12 pb-12"
     >
       {/* Header */}
-      <header className="space-y-6">
-        <div className="flex items-start justify-between">
-          <div className="flex items-center gap-4">
-            <InitialsAvatar name={profile.displayName} size={72} />
-            <div>
-              <h1 className="font-display text-2xl font-bold text-[var(--ink)]">
+      <header className="space-y-6 min-w-0">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+          <div className="flex items-center gap-3 sm:gap-4 min-w-0">
+            <InitialsAvatar name={profile.displayName} size={64} />
+            <div className="min-w-0">
+              <h1 className="font-display text-xl sm:text-2xl font-bold text-[var(--ink)] truncate">
                 {profile.displayName}
               </h1>
-              <p className="text-sm text-[var(--ink-muted)]">@{profile.username}</p>
+              <p className="text-sm text-[var(--ink-muted)] truncate">@{profile.username}</p>
             </div>
           </div>
-          
-          <div className="flex gap-2">
+
+          <div className="flex gap-2 shrink-0 self-start">
             {isOwnProfile ? (
               <button
                 onClick={() => setIsEditing(!isEditing)}
@@ -122,13 +122,13 @@ export default function ProfilePage() {
               value={editedBio}
               onChange={(e) => setEditedBio(e.target.value)}
               placeholder="Tell the gathering about your soul..."
-              className="w-full p-4 bg-[var(--bg-elev)] border border-[var(--line)] rounded-xl text-sm outline-none focus:ring-1 focus:ring-[var(--accent)] min-h-[100px] resize-none"
+              className="w-full min-w-0 p-4 surface-card rounded-xl text-base outline-none focus:ring-2 focus:ring-[var(--accent-soft)] min-h-[100px] resize-y"
               maxLength={280}
             />
             <button
               onClick={() => updateProfileMutation.mutate({ bio: editedBio })}
               disabled={updateProfileMutation.isPending}
-              className="px-6 py-2 bg-[var(--ink)] text-white text-xs font-bold uppercase tracking-widest rounded-full hover:opacity-90 disabled:opacity-50 transition-all shadow-sm"
+              className="bg-[var(--ink)] text-white px-6 py-2.5 text-xs font-bold uppercase tracking-widest rounded-full hover:opacity-90 disabled:opacity-50 transition-all shadow-sm min-h-[44px]"
             >
               {updateProfileMutation.isPending ? 'Saving...' : 'Save Description'}
             </button>

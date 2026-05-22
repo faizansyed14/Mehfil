@@ -57,8 +57,8 @@ export default function CommentThread({ postId }) {
               placeholder="Add your thoughts…"
               value={commentBody}
               onChange={(e) => setCommentBody(e.target.value)}
-              className="w-full bg-transparent border-b border-[var(--line)] py-1 text-sm outline-none focus:border-[var(--ink)] resize-none transition-colors"
-              rows={1}
+              className="w-full min-w-0 bg-transparent border-b border-[var(--line)] py-2 text-base outline-none focus:border-[var(--accent)] resize-none transition-colors"
+              rows={2}
             />
             <div className="flex justify-end">
               <Button 

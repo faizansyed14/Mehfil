@@ -39,10 +39,12 @@ import authRoutes from './modules/auth/auth.routes.js';
 import usersRoutes from './modules/users/users.routes.js';
 import postsRoutes from './modules/posts/posts.routes.js';
 import adminRoutes from './modules/admin/admin.routes.js';
+import searchRoutes from './modules/search/search.routes.js';
 
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/users', usersRoutes);
 app.use('/api/v1/posts', postsRoutes);
+app.use('/api/v1/search', searchRoutes);
 app.use('/api/v1/admin', adminRoutes);
 
 // Error handler

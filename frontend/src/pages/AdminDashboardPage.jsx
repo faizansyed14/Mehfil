@@ -102,26 +102,29 @@ export default function AdminDashboardPage() {
       animate={{ opacity: 1 }}
       className="space-y-8 pb-12"
     >
-      <header className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <header className="flex flex-col gap-4 min-w-0">
         <div>
-          <h1 className="font-display text-3xl font-bold text-[var(--ink)]">Control Room</h1>
+          <h1 className="font-display text-2xl sm:text-3xl font-bold text-[var(--ink)]">Control Room</h1>
           <p className="text-sm text-[var(--ink-muted)]">Maintain the balance of Mehfil.</p>
         </div>
-        
-        <div className="flex gap-1 bg-[var(--accent-soft)] p-1 rounded-xl">
+
+        <div className="flex gap-1 overflow-x-auto p-1 rounded-xl bg-[var(--accent-soft)] -mx-1 px-1 scrollbar-thin">
           {tabs.map((t) => (
             <button
               key={t.id}
               onClick={() => setActiveTab(t.id)}
               className={cn(
-                "flex items-center gap-2 px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-lg transition-all",
-                activeTab === t.id 
-                  ? "bg-white text-[var(--accent)] shadow-sm" 
-                  : "text-[var(--ink-muted)] hover:text-[var(--ink)]"
+                'flex items-center gap-2 px-3 sm:px-4 py-2.5 text-[10px] sm:text-xs font-bold uppercase tracking-wider rounded-lg transition-all whitespace-nowrap shrink-0 min-h-[44px]',
+                activeTab === t.id
+                  ? 'bg-[var(--bg-elev)] text-[var(--accent)] shadow-sm border border-[var(--line)]'
+                  : 'text-[var(--ink-muted)] hover:text-[var(--ink)]'
               )}
             >
               <t.icon size={14} />
-              {t.label}
+              <span className="sm:hidden">
+                {t.id === 'overview' ? 'Stats' : t.id === 'users' ? 'Users' : 'Posts'}
+              </span>
+              <span className="hidden sm:inline">{t.label}</span>
             </button>
           ))}
         </div>
@@ -139,7 +142,7 @@ export default function AdminDashboardPage() {
             {/* Stats Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
               {statCards.map((s) => (
-                <div key={s.label} className="p-6 bg-[var(--bg-elev)] border border-[var(--line)] rounded-2xl shadow-sm">
+                <div key={s.label} className="surface-card p-5 sm:p-6">
                   <div className="flex items-center justify-between mb-4">
                     <div className={cn("p-2 rounded-lg bg-opacity-10", s.color.replace('text', 'bg'))}>
                       <s.icon size={20} className={s.color} />
@@ -153,7 +156,7 @@ export default function AdminDashboardPage() {
 
             {/* Recent Activity Mini-List */}
             <div className="grid grid-cols-1 gap-8">
-              <section className="bg-[var(--bg-elev)] border border-[var(--line)] rounded-2xl shadow-sm overflow-hidden">
+              <section className="surface-card overflow-hidden min-w-0">
                 <div className="p-5 border-b border-[var(--line)]">
                   <h2 className="text-xs font-black uppercase tracking-[0.2em] text-[var(--ink-muted)]">Latest Gatherers (15 Recent)</h2>
                 </div>
@@ -188,16 +191,16 @@ export default function AdminDashboardPage() {
             key="users"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-[var(--bg-elev)] border border-[var(--line)] rounded-2xl shadow-sm overflow-hidden"
+            className="surface-card overflow-hidden min-w-0"
           >
-            <div className="p-5 border-b border-[var(--line)] flex items-center justify-between flex-wrap gap-4">
+            <div className="p-4 sm:p-5 border-b border-[var(--line)] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                <h3 className="font-bold text-lg">User Registry</h3>
-               <div className="flex gap-2">
-                 <div className="relative">
+               <div className="flex gap-2 w-full sm:w-auto">
+                 <div className="relative flex-1 sm:flex-initial min-w-0">
                    <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--ink-faint)]" />
-                   <input 
-                     placeholder="Search users..." 
-                     className="pl-9 pr-4 py-2 bg-white border border-[var(--line)] rounded-lg text-xs outline-none focus:ring-1 focus:ring-[var(--accent)]" 
+                   <input
+                     placeholder="Search users..."
+                     className="w-full min-w-0 pl-9 pr-4 py-2.5 surface-card rounded-lg text-base sm:text-xs outline-none focus:ring-2 focus:ring-[var(--accent-soft)]"
                    />
                  </div>
                </div>
@@ -209,26 +212,26 @@ export default function AdminDashboardPage() {
                 <table className="w-full text-left relative">
                   <thead className="bg-[var(--accent-soft)] bg-opacity-90 sticky top-0 z-10 text-[10px] uppercase tracking-widest text-[var(--ink-muted)] font-bold backdrop-blur-md">
                     <tr>
-                      <th className="px-6 py-4">Poet</th>
-                      <th className="px-6 py-4">Role</th>
-                      <th className="px-6 py-4">Verses</th>
-                      <th className="px-6 py-4">Joined</th>
-                      <th className="px-6 py-4 text-right">Actions</th>
+                      <th className="px-3 sm:px-6 py-3 sm:py-4">Poet</th>
+                      <th className="px-3 sm:px-6 py-3 sm:py-4 hidden sm:table-cell">Role</th>
+                      <th className="px-3 sm:px-6 py-3 sm:py-4 hidden md:table-cell">Verses</th>
+                      <th className="px-3 sm:px-6 py-3 sm:py-4 hidden lg:table-cell">Joined</th>
+                      <th className="px-3 sm:px-6 py-3 sm:py-4 text-right">Actions</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-[var(--line)] text-sm">
                     {users.map((u) => (
                       <tr key={u.id} className="hover:bg-[var(--accent-soft)] transition-colors">
-                        <td className="px-6 py-4">
-                          <div className="flex items-center gap-3">
+                        <td className="px-3 sm:px-6 py-3 sm:py-4 min-w-[140px]">
+                          <div className="flex items-center gap-2 sm:gap-3 min-w-0">
                             <InitialsAvatar name={u.displayName} size={32} />
-                            <div>
-                              <p className="font-semibold">{u.displayName}</p>
-                              <p className="text-xs text-[var(--ink-muted)]">@{u.username}</p>
+                            <div className="min-w-0">
+                              <p className="font-semibold truncate">{u.displayName}</p>
+                              <p className="text-xs text-[var(--ink-muted)] truncate">@{u.username}</p>
                             </div>
                           </div>
                         </td>
-                        <td className="px-6 py-4">
+                        <td className="px-3 sm:px-6 py-3 sm:py-4 hidden sm:table-cell">
                           <span className={cn(
                             "px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider",
                             u.role === 'ADMIN' ? "bg-amber-100 text-amber-900" : "bg-gray-100 text-gray-700"
@@ -236,9 +239,9 @@ export default function AdminDashboardPage() {
                             {u.role}
                           </span>
                         </td>
-                        <td className="px-6 py-4 font-mono text-xs">{u._count.posts}</td>
-                        <td className="px-6 py-4 text-xs text-[var(--ink-muted)]">{new Date(u.createdAt).toLocaleDateString()}</td>
-                        <td className="px-6 py-4 text-right space-x-2">
+                        <td className="px-3 sm:px-6 py-3 sm:py-4 font-mono text-xs hidden md:table-cell">{u._count.posts}</td>
+                        <td className="px-3 sm:px-6 py-3 sm:py-4 text-xs text-[var(--ink-muted)] hidden lg:table-cell">{new Date(u.createdAt).toLocaleDateString()}</td>
+                        <td className="px-3 sm:px-6 py-3 sm:py-4 text-right space-x-1 sm:space-x-2">
                           <button 
                             disabled={updateUserMutation.isPending}
                             onClick={() => handleToggleRole(u)}
@@ -272,9 +275,9 @@ export default function AdminDashboardPage() {
             key="posts"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-[var(--bg-elev)] border border-[var(--line)] rounded-2xl shadow-sm overflow-hidden"
+            className="surface-card overflow-hidden min-w-0"
           >
-            <div className="p-5 border-b border-[var(--line)] flex items-center justify-between">
+            <div className="p-4 sm:p-5 border-b border-[var(--line)] flex items-center justify-between">
                <h3 className="font-bold text-lg">Platform Verses</h3>
                <Filter size={16} className="text-[var(--ink-faint)]" />
             </div>

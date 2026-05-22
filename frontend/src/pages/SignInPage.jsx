@@ -8,6 +8,7 @@ import { Input } from '../components/ui/Input';
 import { Button } from '../components/ui/Button';
 import { authApi } from '../api/auth.api';
 import { useAuthStore } from '../store/authStore';
+import ThemeToggle from '../components/ui/ThemeToggle';
 
 const schema = z.object({
   identifier: z.string().min(3, 'Username or email required'),
@@ -42,29 +43,35 @@ export default function SignInPage() {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="min-h-screen flex items-center justify-center px-4"
-      style={{ backgroundColor: 'var(--bg)' }}
+      className="relative min-h-dvh flex items-center justify-center px-4 py-8"
     >
-      <div className="w-full max-w-[400px]">
-        <div className="text-center mb-10">
-          <h1 className="font-display text-4xl font-semibold mb-2" style={{ color: 'var(--ink)' }}>
+      <div className="absolute top-4 right-4 sm:top-6 sm:right-6 z-10" style={{ paddingTop: 'var(--safe-top)' }}>
+        <ThemeToggle />
+      </div>
+      <div className="w-full max-w-[400px] min-w-0">
+        <div className="text-center mb-8 sm:mb-10">
+          <h1 className="font-display text-3xl sm:text-4xl font-semibold text-[var(--ink)] mb-2">
             Mehfil
           </h1>
-          <p className="font-body text-sm italic" style={{ color: 'var(--ink-muted)' }}>
+          <p className="font-body text-sm italic text-[var(--ink-muted)]">
             a gathering for verse
           </p>
         </div>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 bg-[var(--bg-elev)] p-8 border border-[var(--line)] rounded-lg">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="space-y-5 sm:space-y-6 surface-card p-5 sm:p-8"
+        >
           {serverError && (
-            <div className="p-3 text-xs font-medium text-[var(--accent)] bg-[var(--accent-soft)] rounded-md border border-[var(--accent)] border-opacity-20">
+            <div className="p-3 text-xs font-medium text-[var(--accent)] bg-[var(--accent-soft)] rounded-md border border-[var(--line)]">
               {serverError}
             </div>
           )}
 
           <Input
             label="Email or Username"
-            placeholder="e.g. poet@mehfil.local"
+            placeholder="e.g. admin@gmail.com"
+            autoComplete="username"
             error={errors.identifier?.message}
             {...register('identifier')}
           />
@@ -73,17 +80,18 @@ export default function SignInPage() {
             label="Password"
             type="password"
             placeholder="••••••••"
+            autoComplete="current-password"
             error={errors.password?.message}
             {...register('password')}
           />
 
-          <Button type="submit" className="w-full" isLoading={isLoading}>
+          <Button type="submit" className="w-full" size="lg" isLoading={isLoading}>
             Sign In
           </Button>
         </form>
 
-        <p className="mt-8 text-center text-sm" style={{ color: 'var(--ink-muted)' }}>
-          Don't have an account?{' '}
+        <p className="mt-6 sm:mt-8 text-center text-sm text-[var(--ink-muted)]">
+          Don&apos;t have an account?{' '}
           <Link to="/signup" className="text-[var(--accent)] font-medium hover:underline">
             Join the gathering
           </Link>

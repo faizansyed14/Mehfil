@@ -65,12 +65,15 @@ export async function getPosts({ limit = 20, cursor, tag, authorId, followingOf,
   }
 
   if (search) {
+    const term = search.trim();
     const searchCondition = {
       OR: [
-        { title: { contains: search, mode: 'insensitive' } },
-        { body: { contains: search, mode: 'insensitive' } },
-        { tags: { has: search.toLowerCase() } }
-      ]
+        { title: { contains: term, mode: 'insensitive' } },
+        { body: { contains: term, mode: 'insensitive' } },
+        { tags: { has: term.toLowerCase() } },
+        { author: { username: { contains: term, mode: 'insensitive' } } },
+        { author: { displayName: { contains: term, mode: 'insensitive' } } },
+      ],
     };
     query.where = { ...query.where, ...searchCondition };
   }
